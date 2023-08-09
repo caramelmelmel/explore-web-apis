@@ -7,7 +7,7 @@ interface ButtonProps {
 }
 
 const Button = ({children, onClick}: ButtonProps) => {
-    return (<StyledButton onClick={()=> onClick}>
+    return (<StyledButton onClick={()=>onClick&&onClick()}>
         {children}
     </StyledButton>)
 }
