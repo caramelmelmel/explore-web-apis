@@ -1,27 +1,25 @@
 import { useState } from 'react'
 import { Button, SideBar } from './components'
+import { ButtonLabel, MainPageWrapper } from './styledPage';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [open, setOpen] = useState(false);
 
   return (
-    <>
-      <div className="card">
-        <h1>count is {count}</h1>
-        <Button onClick={() => setCount((count) => count + 1)}>
-          count Button
+    
+        <MainPageWrapper>
+          <Button onClick={() => {
+        setOpen((val)=>!val)}}>
+          <ButtonLabel>Explore Web APIs</ButtonLabel>
         </Button>
         <SideBar
-        title="test"
-        open={true}>
-
+          title="test"
+          open={open}
+          onClose={() => setOpen(false)}>
         </SideBar>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      
-    </>
+        </MainPageWrapper>
+        
+        
   )
 }
 

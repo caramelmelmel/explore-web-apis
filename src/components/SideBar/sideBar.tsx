@@ -1,48 +1,52 @@
-import { ReactNode, useCallback, useRef, useState, MutableRefObject, useEffect } from "react"
-import { StyledSidebar } from './styledSideBar'
+import { 
+    MutableRefObject, 
+    ReactNode, 
+    useCallback, 
+    useRef 
+} from "react"
+import { 
+    ChildrenWrapper, 
+    SideBarTitle, 
+    OverLay, 
+    StyledSidebar, 
+    Wrapper 
+} from "./styledSideBar"
+import { createPortal } from "react-dom"
 
 interface SideBarProps {
     open: boolean
     children: ReactNode
-    title: string
+    title: String
+    onClose: CallableFunction
 }
 
-const SubMenu = ({
-    sideBarRef,
-    title,
-    children
-}: Omit<SideBarProps,'open'> & {
-    sideBarRef: MutableRefObject<HTMLDivElement | null>
-}) => <StyledSidebar ref={sideBarRef}>
-        <div>{title}</div>
-        {children}
-    </StyledSidebar>
+const SideBarPanel = ({ 
+    drawerRef, 
+    title, 
+    children,
+    onClose
+}: Omit<SideBarProps, 'open'> & {
+    drawerRef: MutableRefObject<HTMLDivElement | null>
+}) => <Wrapper>
+    <StyledSidebar ref={drawerRef}>
+    <SideBarTitle>{title}</SideBarTitle>
+    <ChildrenWrapper>{children}</ChildrenWrapper>
+</StyledSidebar>
+<OverLay onClick={() => onClose()}/>
+</Wrapper>
 
-const SideBar = ({title,open,children}:SideBarProps) => {
-    const [openSidebar, setOpenSideBar] = useState(open);
-    const sideBarRef = useRef<HTMLDivElement|null>(null);
-    const Menu = useCallback(()=> <SubMenu
-    sideBarRef={sideBarRef}
-    title={title}
-    children={children}
-    />,[title, children, sideBarRef])
-
-    useEffect(() => {
-        const clickHandler = (e: MouseEvent) => {
-            const sideBar = sideBarRef.current;
-            if (sideBar && !sideBar.contains(e.target as HTMLElement)) {
-                sideBar.remove();
-            }
-        }
-        document.addEventListener('click',clickHandler);
-        return () => {
-            document.removeEventListener('click', clickHandler)
-        }
-    })
-    return <>
-            {openSidebar&&(<Menu/>)}
-        </>
-    
+export const SideBar = ({ title, open, children, onClose }: SideBarProps) => {
+    const drawerRef = useRef<HTMLDivElement | null>(null)
+    const Menu = useCallback(() => <SideBarPanel
+        drawerRef={drawerRef}
+        title={title} 
+        children={children}
+        onClose={onClose}
+    />, [children, title, onClose, drawerRef])
+    return open
+        ? createPortal(<Menu />, document.body, 'drawer-panel')
+        : null   
+        
 }
 
-export default SideBar;
+
