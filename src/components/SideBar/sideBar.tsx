@@ -21,14 +21,14 @@ interface SideBarProps {
 }
 
 const SideBarPanel = ({ 
-    drawerRef, 
+    SideBarRef, 
     title, 
     children,
     onClose
 }: Omit<SideBarProps, 'open'> & {
-    drawerRef: MutableRefObject<HTMLDivElement | null>
+    SideBarRef: MutableRefObject<HTMLDivElement | null>
 }) => <Wrapper>
-    <StyledSidebar ref={drawerRef}>
+    <StyledSidebar ref={SideBarRef}>
     <SideBarTitle>{title}</SideBarTitle>
     <ChildrenWrapper>{children}</ChildrenWrapper>
 </StyledSidebar>
@@ -36,17 +36,16 @@ const SideBarPanel = ({
 </Wrapper>
 
 export const SideBar = ({ title, open, children, onClose }: SideBarProps) => {
-    const drawerRef = useRef<HTMLDivElement | null>(null)
+    const sideBarRef = useRef<HTMLDivElement | null>(null)
     const Menu = useCallback(() => <SideBarPanel
-        drawerRef={drawerRef}
+        SideBarRef={sideBarRef}
         title={title} 
         children={children}
         onClose={onClose}
-    />, [children, title, onClose, drawerRef])
+    />, [children, title, onClose, sideBarRef])
     return open
-        ? createPortal(<Menu />, document.body, 'drawer-panel')
+        ? createPortal(<Menu />, document.body, 'sidebar-panel')
         : null   
         
 }
-
 

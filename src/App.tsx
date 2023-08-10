@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, SideBar } from './components'
-import { ButtonLabel, MainPageWrapper } from './styledPage';
+import { ButtonLabel, MainPageWrapper } from './pages/styledPage';
 
 function App() {
   const [open, setOpen] = useState(false);

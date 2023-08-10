@@ -3,10 +3,11 @@ import {styled} from 'styled-components'
 export const StyledSidebar = styled.div`
     background:  #1A2632;
     text-align: center;
+    font-family: Inter;
     color: rgb(255, 255, 255);
     position: absolute;
-    width: 50%;
-    height: 100vh;
+    width: 40%;
+    height: 100%;
     top: 0;
     right: 0;
     padding: 10px;
@@ -20,8 +21,9 @@ export const SideBarTitle = styled.div`
     line-height: 40px;`
 
 export const Wrapper = styled.div`
-    --transition-speed: 0.8s;
-
+    &-open {
+        transform: translateX(0);
+    }
     `
 export const OverLay = styled.div`
     background: rgba(0,0,0,0.9)
@@ -37,5 +39,5 @@ export const OverLay = styled.div`
     `
 export const ChildrenWrapper = styled.div`
     padding: 10px
-    max-height: 100vh;
+    max-height: 100%;
     overflow: scroll;`
