@@ -36,4 +36,6 @@ export const OverLay = styled.div`
     padding: 0px;
     `
 export const ChildrenWrapper = styled.div`
-    padding: 10px`
+    padding: 10px
+    max-height: 100vh;
+    overflow: scroll;`
