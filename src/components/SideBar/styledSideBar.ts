@@ -1,10 +1,10 @@
 import {styled} from 'styled-components'
 
 export const StyledSidebar = styled.div`
-    background:  #1A2632;
+    background:  #42607B;
     text-align: center;
     font-family: Inter;
-    color: rgb(255, 255, 255);
+    color: #FFFFFF;
     position: absolute;
     width: 40%;
     height: 100%;
@@ -26,7 +26,7 @@ export const Wrapper = styled.div`
     }
     `
 export const OverLay = styled.div`
-    background: rgba(0,0,0,0.9)
+    background: rgba(0,0,0,0.7);
     width: 100%;
     height: 100%;
     top: 0;
