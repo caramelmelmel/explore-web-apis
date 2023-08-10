@@ -8,8 +8,7 @@ type DataDetails = {
         contact: {
             email: string,
             name: string,
-            url: string,
-            "x-twitter": string
+            url: string
         }
         description: string,
         title: string,
