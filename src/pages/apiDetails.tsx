@@ -11,6 +11,7 @@ import { ButtonLabel, ButtonWrap, Contacts,
         InformationWrapper } from "./styledPage";
 import { ContentDescription, ContentItemWrapper, ContentLabel } from "./styledPage";
 import { Button } from "../components";
+import { useNavigate, useParams } from "react-router-dom";
 
 type DataDetails = {
     swaggerUrl: string,
@@ -72,9 +73,9 @@ const ContactsItem = ({contactInfo}) => {
     )
 }
 const APIDetails = () => {
-    const url = 'adobe.com';
+    const urlParams = useParams()
+    const {url} = urlParams;
     const [ProviderAPIDetails, setProviderAPIDetails] = useState<DataDetails>()
-
     useEffect(()=>{
         async function getSpecificProvider(providerUrl: string) {
             const response = await axios.get(`https://api.apis.guru/v2/${providerUrl}.json`)
@@ -83,7 +84,7 @@ const APIDetails = () => {
             const details = data[keys[0] as keyof typeof data]
             setProviderAPIDetails(details)
         }
-        getSpecificProvider(url)
+        getSpecificProvider(url!)
     },[url])
 
     const icon = ProviderAPIDetails?.info['x-logo'].url;
@@ -91,7 +92,7 @@ const APIDetails = () => {
     const description = ProviderAPIDetails?.info.description;
     const swaggerUrl = ProviderAPIDetails?.swaggerUrl;
     const contactInfo = ProviderAPIDetails?.info.contact;
-    const [open, setOpen] = useState(true);
+    const navigate = useNavigate();
 
     return(
         <DetailsPageWrapper>
@@ -106,7 +107,7 @@ const APIDetails = () => {
                 
             </InformationWrapper>
             <ButtonWrap>
-                <Button onClick={()=>{setOpen(false)}}>
+                <Button onClick={()=>{navigate('/?sidebaropen=true')}}>
                         <ButtonLabel>Explore more APIs</ButtonLabel>
                     </Button>
                 </ButtonWrap>

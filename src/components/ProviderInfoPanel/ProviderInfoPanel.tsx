@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect,useState } from "react"
 import { InfoPanelIcon, ProviderInfoPanelText, Wrapper } from "./styledProviderInfoPanel"
+import { useNavigate } from "react-router-dom"
 
 type DataDetails = {
     swaggerUrl: string,
@@ -24,6 +25,7 @@ interface ResponseDetails {
 
 const InfoPanel = (props: any) => {
     const [ProviderAPIDetails, setProviderAPIDetails] = useState<DataDetails>()
+    const navigate = useNavigate()
     useEffect(()=>{
         async function getSpecificProvider(providerUrl: string) {
             const response = await axios.get(`https://api.apis.guru/v2/${providerUrl}.json`)
@@ -35,7 +37,7 @@ const InfoPanel = (props: any) => {
         getSpecificProvider(props.url)
     },[props.url])
     return(
-        <Wrapper>
+        <Wrapper onClick={()=> {navigate(`/${props.url}`)}}>
             <InfoPanelIcon src={ProviderAPIDetails?.info["x-logo"].url}/>
             <ProviderInfoPanelText>{ProviderAPIDetails?.info.title}</ProviderInfoPanelText>
         </Wrapper>

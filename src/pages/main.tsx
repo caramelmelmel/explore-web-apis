@@ -4,11 +4,13 @@ import { ButtonLabel, MainPageWrapper } from './styledPage';
 import axios from 'axios';
 import { ActiveMenu, ActiveMenuProps } from '../components/activeMenu/ActiveMenu';
 import InfoPanel from '../components/ProviderInfoPanel/ProviderInfoPanel';
+import { useSearchParams } from 'react-router-dom';
 
 
 function Main() {
-
-  const [open, setOpen] = useState(true);
+  const [searchParams] = useSearchParams();
+  const openParam = searchParams.get('sidebaropen') === 'true'
+  const [open, setOpen] = useState(openParam);
   const [providersUrlList,setProvidersUrlList] = useState([])
   useEffect(()=>{
     async function getAllProviders() {
@@ -31,7 +33,7 @@ function Main() {
           <ButtonLabel>Explore Web APIs</ButtonLabel>
         </Button>
         <SideBar
-          title="test"
+          title="Select Provider"
           open={open}
           onClose={() => setOpen(false)}>
             {data.map((element)=><ActiveMenu{...element}/>)}

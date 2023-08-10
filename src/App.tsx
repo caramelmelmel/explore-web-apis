@@ -13,7 +13,7 @@ function App() {
           <ButtonLabel>Explore Web APIs</ButtonLabel>
         </Button>
         <SideBar
-          title="test"
+          title="Select Provider"
           open={open}
           onClose={() => setOpen(false)}>
         </SideBar>
